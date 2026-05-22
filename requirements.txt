@@ -1,0 +1,16 @@
+
+---
+
+## requirements.txt content
+
+Copy this:
+
+```txt
+torch
+torchvision
+flask
+requests
+pillow
+matplotlib
+scikit-learn
+numpy

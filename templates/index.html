@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Classifier</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Image <span>Classifier</span></h1>
+
+        <!-- Drop Zone — clicking it triggers the hidden file input -->
+        <div class="drop-area" id="drop-area">
+            <div class="drop-icon">🖼️</div>
+            <p class="drop-label">Drag &amp; drop an image here</p>
+            <p class="drop-hint">or click to browse files</p>
+        </div>
+
+        <!-- Hidden file input (programmatically triggered) -->
+        <input type="file" id="fileInput" accept="image/*">
+
+        <!-- Separator -->
+        <div class="divider">or use a URL</div>
+
+        <!-- URL input (no button here anymore) -->
+        <input
+            type="text"
+            id="urlInput"
+            placeholder="Paste an image URL…"
+        >
+
+        <!-- Single shared Predict button, disabled by default -->
+        <button id="predictBtn" onclick="runPredict()" disabled>
+            Predict
+        </button>
+
+        <!-- Result area -->
+        <div id="result"></div>
+
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+    <script>
+        /* ── State ───────────────────────────── */
+        let selectedFile = null;
+
+        const dropArea   = document.getElementById('drop-area');
+        const fileInput  = document.getElementById('fileInput');
+        const urlInput   = document.getElementById('urlInput');
+        const predictBtn = document.getElementById('predictBtn');
+        const result     = document.getElementById('result');
+
+        /* ── Enable / disable predict button ─── */
+        function checkReady() {
+            const hasFile = selectedFile !== null;
+            const hasUrl  = urlInput.value.trim().length > 0;
+            predictBtn.disabled = !(hasFile || hasUrl);
+        }
+
+        /* ── Click on drop area → open file picker ── */
+        dropArea.addEventListener('click', () => fileInput.click());
+
+        /* ── File chosen via picker ─────────────── */
+        fileInput.addEventListener('change', () => {
+            if (fileInput.files.length > 0) {
+                setFile(fileInput.files[0]);
+            }
+        });
+
+        /* ── Drag-and-drop events ────────────────── */
+        dropArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropArea.classList.add('dragover');
+        });
+
+        dropArea.addEventListener('dragleave', () => {
+            dropArea.classList.remove('dragover');
+        });
+
+        dropArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropArea.classList.remove('dragover');
+            const file = e.dataTransfer.files[0];
+            if (file && file.type.startsWith('image/')) {
+                setFile(file);
+            }
+        });
+
+        /* ── Set file and update UI ──────────────── */
+        function setFile(file) {
+            selectedFile = file;
+            urlInput.value = '';                        // clear URL if file chosen
+            dropArea.querySelector('.drop-label').textContent = file.name;
+            dropArea.querySelector('.drop-hint').textContent  = (file.size / 1024).toFixed(1) + ' KB';
+            dropArea.classList.add('has-file');
+            checkReady();
+        }
+
+        /* ── URL input typing ────────────────────── */
+        urlInput.addEventListener('input', () => {
+            if (urlInput.value.trim().length > 0) {
+                selectedFile = null;                    // clear file if URL typed
+                dropArea.querySelector('.drop-label').textContent = 'Drag & drop an image here';
+                dropArea.querySelector('.drop-hint').textContent  = 'or click to browse files';
+                dropArea.classList.remove('has-file');
+            }
+            checkReady();
+        });
+
+        /* ── Predict ─────────────────────────────── */
+        function runPredict() {
+            if (selectedFile) {
+                // sendFile(selectedFile);   ← your existing Flask call
+                showResult('Running prediction on: ' + selectedFile.name);
+            } else {
+                // sendURL(urlInput.value);  ← your existing Flask call
+                showResult('Running prediction on URL…');
+            }
+        }
+
+        function showResult(msg) {
+            result.textContent = msg;
+            result.classList.add('visible');
+        }
+    </script>
+
+</body>
+
+</html>

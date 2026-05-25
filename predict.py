@@ -52,9 +52,7 @@ class Model_0(nn.Module):
 
 
 # Load class names
-with open("class_names.txt","r") as f:
-    class_names=[x.strip() for x in f.readlines()]
-
+class_names = ["pizza","steak","sushi"]
 
 # Transform
 transform=transforms.Compose([
@@ -72,7 +70,7 @@ model=Model_0(32)
 
 model.load_state_dict(
     torch.load(
-        "model.pth",
+        "food_classifier\model.pth",
         map_location=device
     )
 )

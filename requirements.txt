@@ -1,14 +1,7 @@
-
----
-
-## requirements.txt content
-
-Copy this:
-
-```txt
 torch
 torchvision
 flask
+gunicorn
 requests
 pillow
 matplotlib

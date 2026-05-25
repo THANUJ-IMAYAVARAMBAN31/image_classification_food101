@@ -125,11 +125,11 @@ image_classifier_web/
 
 git clone https://github.com/YOUR_USERNAME/image-classifier-web.git
 
-#Move into project directory:
+# Move into project directory:
 
 cd image-classifier-web
 
-#Install dependencies:
+# Install dependencies:
 
 pip install -r requirements.txt
 

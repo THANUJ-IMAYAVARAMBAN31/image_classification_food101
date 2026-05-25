@@ -1,6 +1,18 @@
 # Food Image Classification using Deep Learning
-## Project live at 
-    "https://image-classification-food101.onrender.com/" - can check it out 
+
+## 🚀 Live Demo
+
+Project live at:
+
+(https://image-classification-food101.onrender.com/)
+
+Try uploading an image, dragging and dropping one, or providing an image URL to classify among:
+
+- Pizza 🍕
+- Steak 🥩
+- Sushi 🍣
+
+
 ## Project Overview
 
 This project is a Computer Vision based Image Classification web application built using PyTorch and Flask.

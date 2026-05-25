@@ -70,7 +70,7 @@ model=Model_0(32)
 
 model.load_state_dict(
     torch.load(
-        "food_classifier\model.pth",
+        "model.pth",
         map_location=device
     )
 )

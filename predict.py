@@ -36,7 +36,7 @@ class Model_0(nn.Module):
 
         self.layer_4=nn.Sequential(
             nn.Flatten(),
-            nn.Linear(n*64*64,3)
+            nn.Linear(n*16*16,3)
         )
 
     def forward(self,x):

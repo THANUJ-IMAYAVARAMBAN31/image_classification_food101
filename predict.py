@@ -3,9 +3,7 @@ from torchvision import transforms
 from PIL import Image
 import torch.nn as nn
 
-
-device = "cuda" if torch.cuda.is_available() else "cpu"
-
+device = torch.device("cpu")
 
 # SAME MODEL ARCHITECTURE
 class Model_0(nn.Module):
@@ -56,7 +54,7 @@ class_names = ["pizza","steak","sushi"]
 
 # Transform
 transform=transforms.Compose([
-        transforms.Resize((512,512)),
+        transforms.Resize((128,128)),
         transforms.ToTensor(),
         transforms.Normalize(
             mean=[0.485,0.456,0.406],
@@ -71,7 +69,7 @@ model=Model_0(32)
 model.load_state_dict(
     torch.load(
         "model.pth",
-        map_location=device
+        map_location=torch.device("cpu")
     )
 )
 

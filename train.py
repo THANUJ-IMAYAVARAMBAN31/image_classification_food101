@@ -1,5 +1,5 @@
 import torch
-device = "cuda" if torch.cuda.is_available() else "cpu"
+device = torch.device("cpu")
 print(f"Using {device} device")
 
 # IMPORTING 
@@ -130,7 +130,7 @@ def plot_acc_curves(train_acc_list, test_acc_list):
 
 ### TRANSFORMS 
 train_transform = transforms.Compose(
-                         [ transforms.Resize((512,512)),
+                         [ transforms.Resize((129,128)),
                           transforms.RandomHorizontalFlip(p=0.5),
                           transforms.ToTensor(),
                            transforms.Normalize(
@@ -140,7 +140,7 @@ train_transform = transforms.Compose(
 )
 
 test_transform = transforms.Compose(
-                         [ transforms.Resize((512,512)),
+                         [ transforms.Resize((128,128)),
                           transforms.ToTensor(),
                            transforms.Normalize(
         mean=[0.485, 0.456, 0.406],
@@ -233,7 +233,7 @@ class Model_0(nn.Module):
     )
     self.layer_4 = nn.Sequential(
         nn.Flatten(),
-        nn.Linear(in_features = n*64*64, out_features = 3)
+        nn.Linear(in_features = n*16*16, out_features = 3)
     )
 
   def forward(self,x):

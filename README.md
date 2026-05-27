@@ -140,7 +140,7 @@ git clone https://github.com/YOUR_USERNAME/image-classifier-web.git
 
 # Move into project directory:
 
-cd image-classifier-web
+cd image_classification_food101
 
 # Install dependencies:
 

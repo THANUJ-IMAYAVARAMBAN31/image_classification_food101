@@ -136,7 +136,7 @@ image_classifier_web/
 
 #Clone repository:
 
-git clone https://github.com/YOUR_USERNAME/image-classifier-web.git
+git clone (https://github.com/THANUJ-IMAYAVARAMBAN31/image_classification_food101)
 
 # Move into project directory:
 
